@@ -417,7 +417,7 @@ func TestApplyTieBreak_ReturnsAResult(t *testing.T) {
 	}
 }
 
-func TestApplyBreak_ReturnsErrorForTieBreakerNotFound(t *testing.T) {
+func TestApplyTieBreak_ReturnsErrorForTieBreakerNotFound(t *testing.T) {
 	t.Parallel()
 
 	type args struct {
@@ -461,9 +461,9 @@ func TestApplyBreak_ReturnsErrorForTieBreakerNotFound(t *testing.T) {
 	}
 }
 
-func TestApplyBreak_ReturnsErrorForNilTieBreakers(t *testing.T) {
+func TestApplyTieBreak_ReturnsErrorForNilTieBreakers(t *testing.T) {
 	t.Parallel()
-	d := Decider{} // nil tiebreakers
+	d := Decider{} // nil tieBreakers
 	_, err := d.ApplyTieBreak(game.HighCardRank, game.Hand{}, game.Hand{})
 	if !errors.Is(err, ErrTieBreakersNil) {
 		t.Fatalf("wrong error: %v", err)

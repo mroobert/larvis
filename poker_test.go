@@ -2,6 +2,7 @@ package poker_test
 
 import (
 	"errors"
+	"fmt"
 	"testing"
 
 	poker "github.com/mroobert/larvis"
@@ -316,11 +317,11 @@ func TestPlay_Hand2Wins(t *testing.T) {
 	}
 }
 
-func TestPlay_ReturnsErrorWhenApplyTieBreakWithNilTieBreakers(t *testing.T) {
+func TestPlay_ReturnsErrorWhenApplyTieBreak(t *testing.T) {
 	t.Parallel()
 
 	r := rank.NewRanker()
-	d := tiebreak.Decider{} // nil tiebreakers
+	d := tiebreak.Decider{} // nil tieBreakers
 
 	h1 := game.Hand{
 		game.Card{Value: game.Symbols["A"], Symbol: 'A'},
@@ -340,6 +341,7 @@ func TestPlay_ReturnsErrorWhenApplyTieBreakWithNilTieBreakers(t *testing.T) {
 
 	p := poker.NewPoker(h1, h2, r, d)
 	_, err := p.Play()
+	fmt.Println(err)
 	if !errors.Is(err, poker.ErrApplyTieBreak) {
 		t.Fatalf("wrong error: %v", err)
 	}

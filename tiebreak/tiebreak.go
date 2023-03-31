@@ -3,14 +3,15 @@
 package tiebreak
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/mroobert/larvis/game"
 )
 
 var (
-	ErrTieBreakerNotFound = fmt.Errorf("no tie-breaker found for rank")
-	ErrTieBreakersNil     = fmt.Errorf("tie-breakers not initialized")
+	ErrTieBreakerNotFound = errors.New("no tie-breaker found for rank")
+	ErrTieBreakersNil     = errors.New("tie-breakers not initialized")
 )
 
 // tieBreaker compares two hands of the same rank.
