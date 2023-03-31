@@ -11,7 +11,7 @@ import (
 type twoPairTieBreaker struct{}
 
 // compare compares the two pairs in each hand. The highest pair is compared first.
-// If the two pairs are the same, the remaining game.Card is compared.
+// If the two pairs are the same, the remaining card is compared.
 func (t twoPairTieBreaker) compare(hand1, hand2 game.Hand) string {
 	pairsHand1, remainingCard1 := t.findTwoPair(hand1)
 	pairsHand2, remainingCard2 := t.findTwoPair(hand2)
@@ -47,7 +47,7 @@ func (t twoPairTieBreaker) compare(hand1, hand2 game.Hand) string {
 	return game.Tie
 }
 
-// findTwoPair returns the two pairs and the remaining game.Card.
+// findTwoPair returns the two pairs and the remaining card.
 func (twoPairTieBreaker) findTwoPair(hand game.Hand) (pairs []game.Card, remainingCard game.Card) {
 	f := freq.CardsFreq(hand)
 	for k := range f {

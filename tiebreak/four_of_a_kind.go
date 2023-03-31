@@ -9,7 +9,7 @@ import (
 type fourOfAKindTieBreaker struct{}
 
 // compare compares the FOUR OF A KIND in each hand.
-// If the FOUR OF A KIND is the same, the remaining game.Card is compared.
+// If the FOUR OF A KIND is the same, the remaining card is compared.
 func (f fourOfAKindTieBreaker) compare(hand1, hand2 game.Hand) string {
 	fourOfAKindHand1, remainingCard1 := f.findFourOfAkind(hand1)
 	fourOfAKindHand2, remainingCard2 := f.findFourOfAkind(hand2)
@@ -22,7 +22,7 @@ func (f fourOfAKindTieBreaker) compare(hand1, hand2 game.Hand) string {
 		return game.Hand2Wins
 	}
 
-	// remaining game.Card comparison
+	// remaining card comparison
 	if remainingCard1.Value > remainingCard2.Value {
 		return game.Hand1Wins
 	}
@@ -33,7 +33,7 @@ func (f fourOfAKindTieBreaker) compare(hand1, hand2 game.Hand) string {
 	return game.Tie
 }
 
-// findFourOfAkind returns the FOUR OF A KIND and the remaining game.Card.
+// findFourOfAkind returns the FOUR OF A KIND and the remaining card.
 func (fourOfAKindTieBreaker) findFourOfAkind(hand game.Hand) (fourOfAKind game.Card, remainingCard game.Card) {
 	f := freq.CardsFreq(hand)
 	for k := range f {

@@ -9,7 +9,7 @@ import (
 // highCardTieBreaker manages the tie-breaking of hands with the HIGH CARD rank.
 type highCardTieBreaker struct{}
 
-// compare compares the highest game.Card in each hand.
+// compare compares the highest card in each hand.
 func (highCardTieBreaker) compare(hand1, hand2 game.Hand) string {
 	sort.Sort(hand1)
 	sort.Sort(hand2)
