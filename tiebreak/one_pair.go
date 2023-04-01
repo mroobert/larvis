@@ -3,7 +3,7 @@ package tiebreak
 import (
 	"sort"
 
-	"github.com/mroobert/larvis/game"
+	"github.com/mroobert/larvis"
 	"github.com/mroobert/larvis/rank/freq"
 )
 
@@ -12,16 +12,16 @@ type onePairTieBreaker struct{}
 
 // compare compares the pair in each hand.
 // If the pair is the same, the remaining cards are compared.
-func (o onePairTieBreaker) compare(hand1, hand2 game.Hand) string {
+func (o onePairTieBreaker) compare(hand1, hand2 larvis.Hand) string {
 	pairHand1, remainingCards1 := o.findPair(hand1)
 	pairHand2, remainingCards2 := o.findPair(hand2)
 
 	// pair comparison
 	if pairHand1.Value > pairHand2.Value {
-		return game.Hand1Wins
+		return larvis.Hand1Wins
 	}
 	if pairHand1.Value < pairHand2.Value {
-		return game.Hand2Wins
+		return larvis.Hand2Wins
 	}
 
 	// remaining cards comparison
@@ -32,29 +32,29 @@ func (o onePairTieBreaker) compare(hand1, hand2 game.Hand) string {
 		return remainingCards2[i].Value > remainingCards2[j].Value // sort descending
 	})
 	if remainingCards1[0].Value > remainingCards2[0].Value {
-		return game.Hand1Wins
+		return larvis.Hand1Wins
 	}
 	if remainingCards1[0].Value < remainingCards2[0].Value {
-		return game.Hand2Wins
+		return larvis.Hand2Wins
 	}
 	if remainingCards1[1].Value > remainingCards2[1].Value {
-		return game.Hand1Wins
+		return larvis.Hand1Wins
 	}
 	if remainingCards1[1].Value < remainingCards2[1].Value {
-		return game.Hand2Wins
+		return larvis.Hand2Wins
 	}
 	if remainingCards1[2].Value > remainingCards2[2].Value {
-		return game.Hand1Wins
+		return larvis.Hand1Wins
 	}
 	if remainingCards1[2].Value < remainingCards2[2].Value {
-		return game.Hand2Wins
+		return larvis.Hand2Wins
 	}
 
-	return game.Tie
+	return larvis.Tie
 }
 
 // findPair returns the pair and the remaining cards.
-func (onePairTieBreaker) findPair(hand game.Hand) (pair game.Card, remainingCards []game.Card) {
+func (onePairTieBreaker) findPair(hand larvis.Hand) (pair larvis.Card, remainingCards []larvis.Card) {
 	f := freq.CardsFreq(hand)
 	for k := range f {
 		if f[k] == 2 {

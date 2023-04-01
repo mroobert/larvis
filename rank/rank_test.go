@@ -3,7 +3,7 @@ package rank_test
 import (
 	"testing"
 
-	"github.com/mroobert/larvis/game"
+	"github.com/mroobert/larvis"
 	"github.com/mroobert/larvis/rank"
 )
 
@@ -11,91 +11,91 @@ func TestRankHand(t *testing.T) {
 	t.Parallel()
 
 	type args struct {
-		h game.Hand
+		h larvis.Hand
 	}
 
 	tests := []struct {
 		name string
 		args args
-		want game.HandRank
+		want larvis.HandRank
 	}{
 		{
 			name: "high card",
 			args: args{
-				h: game.Hand{
-					{Value: game.Symbols["Q"], Symbol: 'Q'},
-					{Value: game.Symbols["J"], Symbol: 'J'},
-					{Value: game.Symbols["K"], Symbol: 'K'},
-					{Value: game.Symbols["T"], Symbol: 'T'},
-					{Value: game.Symbols["A"], Symbol: 'A'},
+				h: larvis.Hand{
+					{Value: larvis.Symbols["Q"], Symbol: 'Q'},
+					{Value: larvis.Symbols["J"], Symbol: 'J'},
+					{Value: larvis.Symbols["K"], Symbol: 'K'},
+					{Value: larvis.Symbols["T"], Symbol: 'T'},
+					{Value: larvis.Symbols["A"], Symbol: 'A'},
 				},
 			},
-			want: game.HighCardRank,
+			want: larvis.HighCardRank,
 		},
 		{
 			name: "one pair",
 			args: args{
-				h: game.Hand{
-					{Value: game.Symbols["Q"], Symbol: 'Q'},
-					{Value: game.Symbols["J"], Symbol: 'J'},
-					{Value: game.Symbols["K"], Symbol: 'K'},
-					{Value: game.Symbols["T"], Symbol: 'T'},
-					{Value: game.Symbols["Q"], Symbol: 'Q'},
+				h: larvis.Hand{
+					{Value: larvis.Symbols["Q"], Symbol: 'Q'},
+					{Value: larvis.Symbols["J"], Symbol: 'J'},
+					{Value: larvis.Symbols["K"], Symbol: 'K'},
+					{Value: larvis.Symbols["T"], Symbol: 'T'},
+					{Value: larvis.Symbols["Q"], Symbol: 'Q'},
 				},
 			},
-			want: game.OnePairRank,
+			want: larvis.OnePairRank,
 		},
 		{
 			name: "two pairs",
 			args: args{
-				h: game.Hand{
-					{Value: game.Symbols["Q"], Symbol: 'Q'},
-					{Value: game.Symbols["J"], Symbol: 'J'},
-					{Value: game.Symbols["K"], Symbol: 'K'},
-					{Value: game.Symbols["J"], Symbol: 'J'},
-					{Value: game.Symbols["Q"], Symbol: 'Q'},
+				h: larvis.Hand{
+					{Value: larvis.Symbols["Q"], Symbol: 'Q'},
+					{Value: larvis.Symbols["J"], Symbol: 'J'},
+					{Value: larvis.Symbols["K"], Symbol: 'K'},
+					{Value: larvis.Symbols["J"], Symbol: 'J'},
+					{Value: larvis.Symbols["Q"], Symbol: 'Q'},
 				},
 			},
-			want: game.TwoPairRank,
+			want: larvis.TwoPairRank,
 		},
 		{
 			name: "triple",
 			args: args{
-				h: game.Hand{
-					{Value: game.Symbols["4"], Symbol: '4'},
-					{Value: game.Symbols["4"], Symbol: '4'},
-					{Value: game.Symbols["4"], Symbol: '4'},
-					{Value: game.Symbols["2"], Symbol: '2'},
-					{Value: game.Symbols["1"], Symbol: '1'},
+				h: larvis.Hand{
+					{Value: larvis.Symbols["4"], Symbol: '4'},
+					{Value: larvis.Symbols["4"], Symbol: '4'},
+					{Value: larvis.Symbols["4"], Symbol: '4'},
+					{Value: larvis.Symbols["2"], Symbol: '2'},
+					{Value: larvis.Symbols["1"], Symbol: '1'},
 				},
 			},
-			want: game.TripleRank,
+			want: larvis.TripleRank,
 		},
 		{
 			name: "full house",
 			args: args{
-				h: game.Hand{
-					{Value: game.Symbols["4"], Symbol: '4'},
-					{Value: game.Symbols["4"], Symbol: '4'},
-					{Value: game.Symbols["4"], Symbol: '4'},
-					{Value: game.Symbols["2"], Symbol: '2'},
-					{Value: game.Symbols["2"], Symbol: '2'},
+				h: larvis.Hand{
+					{Value: larvis.Symbols["4"], Symbol: '4'},
+					{Value: larvis.Symbols["4"], Symbol: '4'},
+					{Value: larvis.Symbols["4"], Symbol: '4'},
+					{Value: larvis.Symbols["2"], Symbol: '2'},
+					{Value: larvis.Symbols["2"], Symbol: '2'},
 				},
 			},
-			want: game.FullHouseRank,
+			want: larvis.FullHouseRank,
 		},
 		{
 			name: "four of a kind",
 			args: args{
-				h: game.Hand{
-					{Value: game.Symbols["4"], Symbol: '4'},
-					{Value: game.Symbols["4"], Symbol: '4'},
-					{Value: game.Symbols["4"], Symbol: '4'},
-					{Value: game.Symbols["4"], Symbol: '4'},
-					{Value: game.Symbols["2"], Symbol: '2'},
+				h: larvis.Hand{
+					{Value: larvis.Symbols["4"], Symbol: '4'},
+					{Value: larvis.Symbols["4"], Symbol: '4'},
+					{Value: larvis.Symbols["4"], Symbol: '4'},
+					{Value: larvis.Symbols["4"], Symbol: '4'},
+					{Value: larvis.Symbols["2"], Symbol: '2'},
 				},
 			},
-			want: game.FourOfAKindRank,
+			want: larvis.FourOfAKindRank,
 		},
 	}
 

@@ -1,31 +1,32 @@
-package poker
+// Package game provides support for playing a game of larvis.
+package game
 
 import (
 	"errors"
 	"fmt"
 
-	"github.com/mroobert/larvis/game"
+	"github.com/mroobert/larvis"
 	"github.com/mroobert/larvis/rank"
 	"github.com/mroobert/larvis/tiebreak"
 )
 
 var ErrApplyTieBreak = errors.New("failed to apply tie-break")
 
-// Poker represents a game of poker.
-type Poker struct {
-	hand1   game.Hand
-	hand2   game.Hand
+// Game represents a game of larvis.
+type Game struct {
+	hand1   larvis.Hand
+	hand2   larvis.Hand
 	ranker  rank.Ranker
 	decider tiebreak.Decider
 }
 
-func NewPoker(
-	hand1 game.Hand,
-	hand2 game.Hand,
+func NewGame(
+	hand1 larvis.Hand,
+	hand2 larvis.Hand,
 	ranker rank.Ranker,
 	decider tiebreak.Decider,
-) Poker {
-	return Poker{
+) Game {
+	return Game{
 		hand1:   hand1,
 		hand2:   hand2,
 		ranker:  ranker,
@@ -34,13 +35,13 @@ func NewPoker(
 }
 
 // Play compares the two hands and returns the game result.
-func (p Poker) Play() (string, error) {
-	r1 := p.ranker.RankHand(p.hand1)
-	r2 := p.ranker.RankHand(p.hand2)
+func (g Game) Play() (string, error) {
+	r1 := g.ranker.RankHand(g.hand1)
+	r2 := g.ranker.RankHand(g.hand2)
 
 	// apply tie-breaking rules
 	if r1 == r2 {
-		res, err := p.decider.ApplyTieBreak(r1, p.hand1, p.hand2)
+		res, err := g.decider.ApplyTieBreak(r1, g.hand1, g.hand2)
 		if err != nil {
 			return "", fmt.Errorf("%w: %v", ErrApplyTieBreak, err)
 		}
@@ -48,8 +49,8 @@ func (p Poker) Play() (string, error) {
 	}
 
 	if r1 > r2 {
-		return game.Hand1Wins, nil
+		return larvis.Hand1Wins, nil
 	}
 
-	return game.Hand2Wins, nil
+	return larvis.Hand2Wins, nil
 }

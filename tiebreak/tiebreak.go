@@ -6,7 +6,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/mroobert/larvis/game"
+	"github.com/mroobert/larvis"
 )
 
 var (
@@ -16,23 +16,23 @@ var (
 
 // tieBreaker compares two hands of the same rank.
 type tieBreaker interface {
-	compare(hand1, hand2 game.Hand) string
+	compare(hand1, hand2 larvis.Hand) string
 }
 
 // Decider manages the tie-breaking of hands.
 type Decider struct {
-	tieBreakers map[game.HandRank]tieBreaker
+	tieBreakers map[larvis.HandRank]tieBreaker
 }
 
 func NewDecider() Decider {
 	return Decider{
-		tieBreakers: map[game.HandRank]tieBreaker{
-			game.HighCardRank:    highCardTieBreaker{},
-			game.OnePairRank:     onePairTieBreaker{},
-			game.TwoPairRank:     twoPairTieBreaker{},
-			game.TripleRank:      tripleTieBreaker{},
-			game.FullHouseRank:   fullHouseTieBreaker{},
-			game.FourOfAKindRank: fourOfAKindTieBreaker{},
+		tieBreakers: map[larvis.HandRank]tieBreaker{
+			larvis.HighCardRank:    highCardTieBreaker{},
+			larvis.OnePairRank:     onePairTieBreaker{},
+			larvis.TwoPairRank:     twoPairTieBreaker{},
+			larvis.TripleRank:      tripleTieBreaker{},
+			larvis.FullHouseRank:   fullHouseTieBreaker{},
+			larvis.FourOfAKindRank: fourOfAKindTieBreaker{},
 		},
 	}
 }
@@ -41,7 +41,7 @@ func NewDecider() Decider {
 // specific tie-breaking rules associated with the rank.
 //
 // If a winner cannot be decided, we have a tie.
-func (d Decider) ApplyTieBreak(r game.HandRank, hand1, hand2 game.Hand) (string, error) {
+func (d Decider) ApplyTieBreak(r larvis.HandRank, hand1, hand2 larvis.Hand) (string, error) {
 	if d.tieBreakers == nil {
 		return "", ErrTieBreakersNil
 	}

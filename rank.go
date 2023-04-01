@@ -1,4 +1,4 @@
-package game
+package larvis
 
 // HandRank represents the rank of a hand.
 type HandRank int

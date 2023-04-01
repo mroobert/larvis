@@ -1,4 +1,4 @@
-# Variation of a poker game
+# Larvis - variation of a poker game
 
 Cards:
 
@@ -92,7 +92,7 @@ Run multiple games defined in the `./cmd/games.csv` file:
 ```shell
 $ cd cmd
 
-$ go run main.go -csv true
+$ go run main.go -csv
 ```
 
 ## Using `Docker`
@@ -112,5 +112,5 @@ $ docker run poker-larvis -hand1 AAAQQ -hand2 QQAAA
 Run multiple games defined in the `.cmd/games.csv` file:
 
 ```shell
-$ docker run poker-larvis -csv true
+$ docker run poker-larvis -csv
 ```

@@ -2,15 +2,15 @@
 package rank
 
 import (
-	"github.com/mroobert/larvis/game"
+	"github.com/mroobert/larvis"
 	"github.com/mroobert/larvis/rank/freq"
 )
 
 // rankMatcher evaluates the frequency of cards in hand
 // to match a rank.
 type rankMatcher interface {
-	match(f map[game.Card]int) bool
-	rank() game.HandRank
+	match(f map[larvis.Card]int) bool
+	rank() larvis.HandRank
 }
 
 // Ranker manages the ranking of hands.
@@ -33,7 +33,7 @@ func NewRanker() Ranker {
 }
 
 // RankHand determines the rank based on the frequency of cards in hand.
-func (r Ranker) RankHand(h game.Hand) game.HandRank {
+func (r Ranker) RankHand(h larvis.Hand) larvis.HandRank {
 	f := freq.CardsFreq(h)
 	for _, matcher := range r.matchers {
 		if matcher.match(f) {
@@ -41,5 +41,5 @@ func (r Ranker) RankHand(h game.Hand) game.HandRank {
 		}
 	}
 
-	return game.HighCardRank
+	return larvis.HighCardRank
 }
