@@ -11,6 +11,7 @@ var (
 	Hand2Key = "hand2"
 )
 
+// InputErrors collects errors from input validation.
 type InputErrors struct {
 	Errors map[string]string
 }

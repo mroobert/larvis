@@ -44,7 +44,9 @@ func main() {
 
 			hand1, hand2, errs := parseHands(hands[0], hands[1])
 			if len(errs.Errors) > 0 {
-				log.Fatal(errs)
+				log.Printf("Hand1: %q; Hand2: %q %v", hands[0], hands[1], errs)
+				fmt.Println()
+				continue
 			}
 
 			ranker := rank.NewRanker()
@@ -52,7 +54,8 @@ func main() {
 			p := poker.NewPoker(hand1, hand2, ranker, decider)
 			res, err := p.Play()
 			if err != nil {
-				log.Fatalf("failed to play: %v", err)
+				log.Printf("Hand1: %q; Hand2: %q\nfailed to play: %v", hand1, hand2, err)
+				continue
 			}
 			log.Printf("Hand1: %q; Hand2: %q => %s\n", hand1, hand2, res)
 		}
@@ -76,11 +79,6 @@ func main() {
 
 func parseHands(hand1, hand2 string) (game.Hand, game.Hand, *inputerrs.InputErrors) {
 	inputErrs := inputerrs.NewInputErrors()
-
-	if hand1 == "" && hand2 == "" {
-		inputErrs.AddError(inputerrs.Hand1Key, "empty hand is not permitted")
-		inputErrs.AddError(inputerrs.Hand2Key, "empty hand is not permitted")
-	}
 
 	h1, err := game.CreateHand([]rune(hand1))
 	if err != nil {

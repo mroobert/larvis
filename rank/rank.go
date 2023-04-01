@@ -6,8 +6,8 @@ import (
 	"github.com/mroobert/larvis/rank/freq"
 )
 
-// rankMatcher evaluates the frequency of cards in a hand
-// to determine if the hand is of a particular rank.
+// rankMatcher evaluates the frequency of cards in hand
+// to match a rank.
 type rankMatcher interface {
 	match(f map[game.Card]int) bool
 	rank() game.HandRank
@@ -32,7 +32,7 @@ func NewRanker() Ranker {
 	}
 }
 
-// RankHand ranks the hand based on the frequency of cards in the hand.
+// RankHand determines the rank based on the frequency of cards in hand.
 func (r Ranker) RankHand(h game.Hand) game.HandRank {
 	f := freq.CardsFreq(h)
 	for _, matcher := range r.matchers {
