@@ -8,7 +8,7 @@ import (
 	"os"
 	"strings"
 
-	poker "github.com/mroobert/larvis"
+	"github.com/mroobert/larvis"
 	"github.com/mroobert/larvis/game"
 	"github.com/mroobert/larvis/inputerrs"
 	"github.com/mroobert/larvis/rank"
@@ -28,6 +28,8 @@ func main() {
 	flag.StringVar(&cfg.hand1, "hand1", "", "Provides first hand")
 	flag.StringVar(&cfg.hand2, "hand2", "", "Provides second hand")
 	flag.Parse()
+
+	parseFlags(cfg)
 
 	if cfg.csv {
 		file, err := os.Open("./games.csv")
@@ -51,8 +53,8 @@ func main() {
 
 			ranker := rank.NewRanker()
 			decider := tiebreak.NewDecider()
-			p := poker.NewPoker(hand1, hand2, ranker, decider)
-			res, err := p.Play()
+			g := game.NewGame(hand1, hand2, ranker, decider)
+			res, err := g.Play()
 			if err != nil {
 				log.Printf("Hand1: %q; Hand2: %q\nfailed to play: %v", hand1, hand2, err)
 				continue
@@ -67,7 +69,7 @@ func main() {
 
 		ranker := rank.NewRanker()
 		decider := tiebreak.NewDecider()
-		p := poker.NewPoker(hand1, hand2, ranker, decider)
+		p := game.NewGame(hand1, hand2, ranker, decider)
 		res, err := p.Play()
 		if err != nil {
 			log.Fatalf("failed to play: %v", err)
@@ -77,15 +79,22 @@ func main() {
 
 }
 
-func parseHands(hand1, hand2 string) (game.Hand, game.Hand, *inputerrs.InputErrors) {
+func parseFlags(cfg config) {
+	if cfg.hand1 == "" && cfg.hand2 == "" && !cfg.csv {
+		flag.Usage()
+		os.Exit(1)
+	}
+}
+
+func parseHands(hand1, hand2 string) (larvis.Hand, larvis.Hand, *inputerrs.InputErrors) {
 	inputErrs := inputerrs.NewInputErrors()
 
-	h1, err := game.CreateHand([]rune(hand1))
+	h1, err := larvis.CreateHand([]rune(hand1))
 	if err != nil {
 		inputErrs.AddError(inputerrs.Hand1Key, fmt.Sprintf("failed to create hand1: %v", err))
 	}
 
-	h2, err := game.CreateHand([]rune(hand2))
+	h2, err := larvis.CreateHand([]rune(hand2))
 	if err != nil {
 		inputErrs.AddError(inputerrs.Hand2Key, fmt.Sprintf("failed to create hand2: %v", err))
 	}
