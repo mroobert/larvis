@@ -1,4 +1,4 @@
-// Package game provides support for playing a game of larvis.
+// Package game provides support for playing a game of poker.
 package game
 
 import (
@@ -12,7 +12,7 @@ import (
 
 var ErrApplyTieBreak = errors.New("failed to apply tie-break")
 
-// Game represents a game of larvis.
+// Game represents a game of poker.
 type Game struct {
 	hand1   larvis.Hand
 	hand2   larvis.Hand
