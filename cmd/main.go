@@ -22,8 +22,13 @@ type config struct {
 }
 
 func main() {
-	var cfg config
+	defer func() {
+		if r := recover(); r != nil {
+			log.Fatalf("Game failed: %v", r)
+		}
+	}()
 
+	var cfg config
 	flag.BoolVar(&cfg.csv, "csv", false, "Run with hands provided from an internal CSV file")
 	flag.StringVar(&cfg.hand1, "hand1", "", "Provides first hand")
 	flag.StringVar(&cfg.hand2, "hand2", "", "Provides second hand")
