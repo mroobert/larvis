@@ -16,11 +16,19 @@ Combinations in order of value:
 - High card, when there's none of the above, like `297QJ`
 
 When two hands have the same combination value, the combination with the higher
-cards wins. When there are two pairs, the higher pair is compared first, so
-`99662` wins against `88776`. When comparing full houses, triples go first, then
-pairs, so `88822` defeats `QQ777`. If the combinations are identical, then the
-other cards are compared, highest to lowest, so `7T2T6` wins against `TT753`,
-because `TT = TT`, `7 = 7`, but `6 > 5`.
+cards wins.
+
+For example:
+
+- when there are two pairs, the higher pair is compared first, so
+  `99662` wins against `88776`.
+
+- when comparing full houses, triples go first, then
+  pairs, so `88822` defeats `QQ777`.
+
+- if the combinations are identical, then the
+  other cards are compared, highest to lowest, so `7T2T6` wins against `TT753`,
+  because `TT = TT`, `7 = 7`, but `6 > 5`.
 
 Some examples of hands and what the result should be.
 
