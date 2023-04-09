@@ -117,7 +117,7 @@ Run a game:
 $ docker run poker-larvis -hand1 AAAQQ -hand2 QQAAA
 ```
 
-Run multiple games defined in the `.cmd/games.csv` file:
+Run multiple games defined in the `cmd/games.csv` file:
 
 ```shell
 $ docker run poker-larvis -csv
