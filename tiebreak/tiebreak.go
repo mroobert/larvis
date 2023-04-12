@@ -41,7 +41,7 @@ func NewDecider() Decider {
 // specific tie-breaking rules associated with the rank.
 //
 // If a winner cannot be decided, we have a tie.
-func (d Decider) ApplyTieBreak(r larvis.HandRank, hand1, hand2 larvis.Hand) (string, error) {
+func (d Decider) ApplyTieBreak(r larvis.HandRank, h1, h2 larvis.Hand) (string, error) {
 	if d.tieBreakers == nil {
 		return "", ErrTieBreakersNil
 	}
@@ -50,5 +50,5 @@ func (d Decider) ApplyTieBreak(r larvis.HandRank, hand1, hand2 larvis.Hand) (str
 	if !ok {
 		return "", fmt.Errorf("%w %q", ErrTieBreakerNotFound, r)
 	}
-	return t.compare(hand1, hand2), nil
+	return t.compare(h1, h2), nil
 }

@@ -92,17 +92,17 @@ func parseFlags(cfg config) {
 }
 
 func parseHands(hand1, hand2 string) (larvis.Hand, larvis.Hand, *inputerrs.InputErrors) {
-	inputErrs := inputerrs.NewInputErrors()
+	inErrs := inputerrs.NewInputErrors()
 
 	h1, err := larvis.CreateHand([]rune(hand1))
 	if err != nil {
-		inputErrs.AddError(inputerrs.Hand1Key, fmt.Sprintf("failed to create hand1: %v", err))
+		inErrs.AddError(inputerrs.Hand1Key, fmt.Sprintf("failed to create hand1: %v", err))
 	}
 
 	h2, err := larvis.CreateHand([]rune(hand2))
 	if err != nil {
-		inputErrs.AddError(inputerrs.Hand2Key, fmt.Sprintf("failed to create hand2: %v", err))
+		inErrs.AddError(inputerrs.Hand2Key, fmt.Sprintf("failed to create hand2: %v", err))
 	}
 
-	return h1, h2, inputErrs
+	return h1, h2, inErrs
 }

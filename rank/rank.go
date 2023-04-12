@@ -35,9 +35,9 @@ func NewRanker() Ranker {
 // RankHand determines the rank based on the frequency of cards in hand.
 func (r Ranker) RankHand(h larvis.Hand) larvis.HandRank {
 	f := freq.CardsFreq(h)
-	for _, matcher := range r.matchers {
-		if matcher.match(f) {
-			return matcher.rank()
+	for _, m := range r.matchers {
+		if m.match(f) {
+			return m.rank()
 		}
 	}
 
